@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#Vagrant file for manually resizing the disk
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/8"
+  #config.vm.box = "ubuntu/focal64"
+
+  #config.vm.network "private_network", ip: "192.168.56.2"
+  
+  config.vm.synced_folder "../vagrantDisk", "/vagrant"
+
+   config.vm.provider "virtualbox" do |vb|
+     vb.memory = "1024"
+     vb.cpus = 2
+   end
+   #Centos default disk size is 10GB
+   #Ubuntu focal default disk size is 40GB
+   config.disksize.size = '60GB'
+end

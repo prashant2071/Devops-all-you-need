@@ -1,0 +1,29 @@
+---
+- name: Provision server
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install NTP server on Ubuntu
+      apt:
+        name: chrony
+        state: present
+      when: ansible_distribution == "Ubuntu"
+    - name: Install NTP server on CentOS
+      yum:
+        name: chrony
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Start and Enable chronyd service on Debian
+      service:
+       name: chronyd
+       state: started
+       enabled: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Start and Enable chronyd service on CentOS
+      service:
+       name: chronyd
+       state: started
+       enabled: yes
+      when: ansible_distribution == "CentOS"

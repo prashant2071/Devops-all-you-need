@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+    networks:
+      - testnetwork
+    volumes:
+      - testvolume:/code
+    environment:
+      FLASK_ENV: development
+  redis:
+    image: "redis:alpine"
+    networks:
+      - testnetwork
+networks:
+  testnetwork:
+volumes:
+  testvolume:
